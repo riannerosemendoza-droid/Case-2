@@ -12,6 +12,6 @@ if valid_env(config.file_path, config.req_cols):
 
     # 4. Display pipeline metrics
     stats = loader.get_summary_stats()
-    print("\n--- MEMBER 1 PIPELINE RESULTS ---")
+    print("\n--- PIPELINE RESULTS ---")
     print(f"Total Rows: {stats['total_rows']:,}")
     print(f"Raw Sum: PHP {stats['raw_sum']:,.2f}")
