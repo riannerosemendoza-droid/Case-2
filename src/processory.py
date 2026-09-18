@@ -8,16 +8,20 @@ Data Processing Module
 6. Recording every change in an audit log list.
 """
 
+"""
+Data Processing Module (Member 2: src/processor.py)
+
+This file handles:
+1. Filtering records using two conditions with .loc.
+2. Counting missing values in the filter/category columns.
+3. Creating two derived columns.
+4. Sorting the filtered records.
+5. Recording processing steps in the audit log.
+"""
+
 from typing import Dict, Any, List, Tuple
 import pandas as pd
 import numpy as np
-
-
-def validate_columns(df: pd.DataFrame, required_columns: set) -> None:
-    """Checks if the dataset contains all required columns."""
-    missing_cols = required_columns - set(df.columns)
-    if missing_cols:
-        raise KeyError(f"Dataset missing required column(s): {sorted(list(missing_cols))}")
 
 
 def compute_audit_step(
@@ -27,7 +31,9 @@ def compute_audit_step(
     df_before: pd.DataFrame,
     df_after: pd.DataFrame
 ) -> Dict[str, Any]:
-    """Creates a single audit log entry tracking row counts before and after."""
+    """Create an audit record showing the rows before and after a step."""
+
+    # Store information about what happened during the processing step
     return {
         "step": step,
         "operation": operation,
@@ -38,66 +44,158 @@ def compute_audit_step(
 
 
 class DataProcessor:
-    """Main processor class that cleans, filters, transforms, and audits the dataset."""
+    """Handles filtering, transformation, sorting, and auditing."""
 
-    def __init__(self, min_dutiable_value: float = 0.0, exclude_country_iso: str = "UNK") -> None:
+    def __init__(
+        self,
+        min_dutiable_value: float = 0.0,
+        exclude_country_iso: str = "UNK"
+    ) -> None:
+        """Set the filtering rules and create an empty audit log."""
+
+        # Minimum dutiable value allowed in the filtered records
         self.min_dutiable_value = min_dutiable_value
+
+        # Country code that will be excluded
         self.exclude_country_iso = exclude_country_iso
+
+        # Stores the processing steps for the audit log
         self.audit_records: List[Dict[str, Any]] = []
 
-    def check_missing_tq(self, df: pd.DataFrame) -> Tuple[int, int]:
-        """Counts valid and missing (NaN) values in the 'tq' column without altering them."""
+    def check_missing_tq(
+        self,
+        df: pd.DataFrame
+    ) -> Tuple[int, int]:
+        """Count valid and missing values in the tq column."""
+
+        # Count missing tq values
         missing_count = int(df["tq"].isna().sum())
+
+        # Count tq values that are not missing
         valid_count = int(df["tq"].notna().sum())
+
         return valid_count, missing_count
 
-    def filter_records(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Filters dataset using two conditions via .loc."""
-        cond1 = df["dutiablevaluephp"] > self.min_dutiable_value
-        cond2 = (df["countryorigin_iso3"].notna()) & (df["countryorigin_iso3"] != self.exclude_country_iso)
+    def filter_records(
+        self,
+        df: pd.DataFrame
+    ) -> pd.DataFrame:
+        """Filter records using two conditions with .loc."""
 
-        filtered_df = df.loc[cond1 & cond2].copy()
+        # Make a copy so the original DataFrame is not changed
+        df = df.copy()
 
+        # Convert dutiablevaluephp to a numerical data type.
+        # Invalid or blank numerical values become NaN.
+        df["dutiablevaluephp"] = pd.to_numeric(
+            df["dutiablevaluephp"],
+            errors="coerce"
+        )
+
+        # FILTERING CONDITIONS
+
+        # Condition 1:
+        # Keep records where dutiablevaluephp is greater than PHP 0.
+        condition_1 = (
+            df["dutiablevaluephp"] > self.min_dutiable_value
+        )
+
+        # Condition 2:
+        # Keep records where countryorigin_iso3 is not missing
+        # and is not equal to "UNK".
+        condition_2 = (
+            df["countryorigin_iso3"].notna()
+            & (df["countryorigin_iso3"] != self.exclude_country_iso)
+        )
+
+        # Use .loc and require BOTH conditions to be true.
+        filtered_df = df.loc[
+            condition_1 & condition_2
+        ].copy()
+
+        # If no records remain, show a clear error message.
         if filtered_df.empty:
             raise ValueError(
-                f"Filter error: No records met criteria "
-                f"(dutiablevaluephp > {self.min_dutiable_value} AND countryorigin_iso3 != '{self.exclude_country_iso}')."
+                "No records matched the filtering conditions."
             )
 
-        rule_desc = f"dutiablevaluephp > {self.min_dutiable_value} AND countryorigin_iso3 != '{self.exclude_country_iso}'"
+        # Describe the filtering rule for the audit log.
+        rule_desc = (
+            f"dutiablevaluephp > {self.min_dutiable_value} AND "
+            f"countryorigin_iso3 is not missing AND "
+            f"countryorigin_iso3 != '{self.exclude_country_iso}'"
+        )
+
+        # Record the filtering operation in the audit log.
         self.audit_records.append(
-            compute_audit_step("Step_2_Filter", "FILTER", rule_desc, df, filtered_df)
+            compute_audit_step(
+                "Step_2_Filter",
+                "FILTER",
+                rule_desc,
+                df,
+                filtered_df
+            )
         )
 
         return filtered_df
 
-    def transform_and_sort(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Creates derived columns and sorts records descending."""
+    def transform_and_sort(
+        self,
+        df: pd.DataFrame
+    ) -> pd.DataFrame:
+        """Create two derived columns and sort the records."""
+
+        # Make a copy so the filtered DataFrame is not directly changed
         df_transformed = df.copy()
 
-        # Derived Column 1 (Numerical): Convert PHP value to Millions of PHP
+ 
+        # DERIVED COLUMN 1: NUMERICAL
+ 
+
+        # Convert dutiablevaluephp from PHP to millions of PHP.
+        # Example: PHP 2,000,000 becomes 2.0.
         df_transformed["dutiablevalue_million_php"] = (
-            df_transformed["dutiablevaluephp"] / 1_000_000.0
+            df_transformed["dutiablevaluephp"] / 1_000_000
         )
 
-        # Derived Column 2 (Category/Flag): Duty status flag
-        if "duty" in df_transformed.columns:
-            df_transformed["duty_paid_flag"] = np.where(
-                df_transformed["duty"] > 0, "PAID", "EXEMPT_OR_ZERO"
-            )
-        else:
-            df_transformed["duty_paid_flag"] = np.where(
-                df_transformed["dutiablevaluephp"] >= 10000.0, "HIGH_VALUE", "LOW_VALUE"
-            )
+        # DERIVED COLUMN 2: CATEGORY / FLAG
+   
 
-        # Sort dataset descending by primary value
+        # Classify records based on their dutiable value.
+        # PHP 10,000 or higher = HIGH_VALUE.
+        # Below PHP 10,000 = LOW_VALUE.
+        df_transformed["value_flag"] = np.where(
+            df_transformed["dutiablevaluephp"] >= 10_000,
+            "HIGH_VALUE",
+            "LOW_VALUE"
+        )
+
+ 
+        # SORTING
+    
+
+        # Sort records from the highest dutiable value
+        # to the lowest dutiable value.
         df_transformed = df_transformed.sort_values(
-            by="dutiablevaluephp", ascending=False
+            by="dutiablevaluephp",
+            ascending=False
         ).reset_index(drop=True)
 
-        rule_desc = "Created 'dutiablevalue_million_php' & 'duty_paid_flag'; sorted by dutiablevaluephp desc"
+        # Describe the transformations for the audit log.
+        rule_desc = (
+            "Created dutiablevalue_million_php and value_flag; "
+            "sorted by dutiablevaluephp descending"
+        )
+
+        # Record the transformation operation in the audit log.
         self.audit_records.append(
-            compute_audit_step("Step_3_Transform", "TRANSFORM", rule_desc, df, df_transformed)
+            compute_audit_step(
+                "Step_3_Transform",
+                "TRANSFORM",
+                rule_desc,
+                df,
+                df_transformed
+            )
         )
 
         return df_transformed
