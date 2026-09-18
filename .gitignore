@@ -1,0 +1,6 @@
+data/
+__pycache__/
+.venv/
+*.csv
+
+#this will serve as a blocker so when u run another git add . u will not accidentally push the .csv file and trigger the file size error again
