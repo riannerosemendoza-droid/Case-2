@@ -8,16 +8,6 @@ Data Processing Module
 6. Recording every change in an audit log list.
 """
 
-"""
-Data Processing Module (Member 2: src/processor.py)
-
-This file handles:
-1. Filtering records using two conditions with .loc.
-2. Counting missing values in the filter/category columns.
-3. Creating two derived columns.
-4. Sorting the filtered records.
-5. Recording processing steps in the audit log.
-"""
 
 from typing import Dict, Any, List, Tuple
 import pandas as pd
