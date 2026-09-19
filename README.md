@@ -54,9 +54,8 @@ The required fields for the analysis are:
 
 The raw `2015.csv` file is not included in the repository or final submission archive. To run the program, the dataset must be placed in:
 
-```text
+text
 data/2015.csv
-```
 
 ## Installation and Requirements
 
@@ -68,10 +67,7 @@ The project requires Python and the following third-party libraries:
 - Seaborn
 
 Install the required packages using:
-
-```bash
 pip install -r requirements.txt
-```
 
 Git is also used for version control and collaborative development.
 
@@ -98,6 +94,7 @@ The program processes the dataset and generates the required summary, visualizat
 
 The project is organized into separate modules based on their responsibilities:
 
+'''
 Case-2/
 │
 ├── data/
@@ -130,6 +127,7 @@ Case-2/
 ├── submission_manifest.txt
 ├── .gitignore
 └── README.md
+'''
 
 ## Module Descriptions
 
