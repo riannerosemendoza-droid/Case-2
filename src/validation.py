@@ -84,7 +84,6 @@ def validate_pipeline(raw_df: pd.DataFrame, selected_df: pd.DataFrame, analysis_
     missing_filter_rows = int(missing_filter_mask.sum())
     missing_rows_excluded = bool((filter_condition & missing_filter_mask).sum() == 0)
 
-    add_check(records, "Missing filter-value row count", missing_filter_rows, missing_filter_rows, "exact", True)
     add_check(records, "Raw rows equal selected plus excluded rows", raw_rows, selected_rows + excluded_rows, "exact", raw_rows == selected_rows + excluded_rows)
     add_check(records, "Selected row count follows filter rule", expected_selected_rows, selected_rows, "exact", selected_rows == expected_selected_rows)
     add_check(records, "Excluded row count follows filter rule", expected_excluded_rows, excluded_rows, "exact", excluded_rows == expected_excluded_rows)
