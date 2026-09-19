@@ -1,7 +1,7 @@
 # Case-2
 
-# Philippine Customs 2015 Data Summary Program
-## Group 4
+## Philippine Customs 2015 Data Summary Program
+#### Group 4
 
 | **Member** | **Assigned Task** | **Name** |
 | ---------- | ----------------- | ------------------- |
@@ -13,245 +13,229 @@
 
 Final integration and testing were completed collaboratively by the group.
 
-## Project Description
 
-The Philippine Customs 2015 Data Summary Program is a Python-based application developed to process, summarize, analyze, visualize, and validate Philippine Customs data.
+### Project Overview
 
-The program loads the Customs 2015 dataset, inspects the required fields, filters and transforms the records, creates grouped summaries and a pivot table, performs NumPy-based analysis, generates visualizations, and validates the results through reconciliation checks.
+This project is a Python-based data summary program developed for DSA4153 – Programming for Data Science, Summative Lab Exercise Case Study No. 2. The program processes the Philippine Customs 2015 dataset from BetterGov.PH and demonstrates data loading, filtering, transformation, aggregation, visualization, NumPy-based analysis, validation, and audit logging. The program uses a modular structure in which separate Python modules handle data loading, data processing, summary generation, analysis and visualization, and validation. The complete program is designed to run through main.py and generate the required summary tables, plots, validation results, and audit records.
 
-The project uses a modular structure in which the major stages of the data pipeline are separated into reusable Python modules. Git and GitHub were used for version control, branch-based development, code review, and integration.
 
-## Project Features
+### Dataset Information
 
-The program provides the following major features:
+**Dataset**: Philippine Customs 2015
+**Filename**: 2015.csv
+**Source**: BetterGov.PH
+**Source URL**: https://data.bettergov.ph/datasets/21
+**Download Date**: 2026-09-18
+**File Size**: 493.5 MB
+**File Format**: CSV
 
-1. **Data Loading and Inspection** – Loads the Customs 2015 CSV file and checks the required columns, row count, and initial numerical information.
-2. **Data Processing and Transformation** – Filters records using defined conditions, sorts the selected records, and creates numerical and categorical derived columns.
-3. **Data Grouping and Summarization** – Produces grouped summaries, a two-category summary, a pivot table, and a top-10 summary.
-4. **NumPy Analysis** – Uses NumPy arrays, Boolean masking, vectorized calculations, aggregation, and a comparison between loop-based and vectorized calculations.
-5. **Data Visualization** – Generates a bar chart and heatmap based on the summary outputs.
-6. **Validation** – Reconciles row counts, numerical totals, summary tables, plot source values, and loop/vectorized calculations.
-7. **Audit Logging** – Records major processing steps, operations, rules, and row counts in an audit log.
+The raw dataset contains 2,236,612 rows and 30 columns. The reference total for dutiablevaluephp is PHP 3,587,267,375,257.00.
 
-## Dataset Information
+The raw 2015.csv dataset is not included in the repository or submission ZIP because of its large file size. Before running the program, download the dataset from the source above and place it inside the data folder using the filename 2015.csv.
 
-The project uses the Philippine Customs 2015 dataset from BetterGov.PH.
 
-- **Dataset:** Philippine Customs 2015
-- **Filename:** `2015.csv`
-- **Source:** BetterGov.PH
-- **Listed File Size:** 493.5 MB
-- **Reference Row Count:** 2,236,612
-- **Reference Column Count:** 30
-- **Reference `dutiablevaluephp` Sum:** PHP 3,587,267,375,257
-- **Verified SHA-256:** `b3b5a3a95340179a716a05611d51ad4906484d38363d1ac36494a404c04e4370`
+### Required Dataset Fields
 
-The required fields for the analysis are:
+The program uses the following fields from the Philippine Customs dataset:
 
-- `countryorigin_iso3`
-- `tq`
-- `dutiablevaluephp`
+**countryorigin_iso3** – Country of origin represented using an ISO3 country code.
 
-The raw `2015.csv` file is not included in the repository or final submission archive. To run the program, the dataset must be placed in:
+**tq** – Second categorical field used for the two-category grouping and pivot table.
 
-text
+**dutiablevaluephp** – Numerical measure representing dutiable value in Philippine pesos (PHP).
+
+
+### Project Structure
+
+The project is organized into separate modules based on their responsibilities.
+
+**main.py**
+Serves as the main entry point of the program and executes the complete data-processing pipeline.
+
+**config.py**
+Contains configuration values such as the dataset path, output directory, and required dataset columns.
+
+**src/data_loader.py**
+Handles loading the Customs CSV file, checking required columns, and obtaining initial raw dataset statistics.
+
+**src/processory.py**
+Handles data filtering, transformation, derived columns, sorting, and processing audit records.
+
+**src/summary_grouping.py**
+Creates the grouped summaries, two-category summary, pivot table, and Top 10 summary.
+
+**src/analysis.py**
+Performs the NumPy analysis, Boolean masking, vectorized calculation, loop-versus-NumPy comparison, and creation of the required plots.
+
+**src/validation.py**
+Performs validation and reconciliation checks and generates validation.csv and audit_log.csv.
+
+**src/__init__.py**
+Initializes the src package.
+
+**outputs folder**
+Contains the generated CSV summaries, plots, validation results, and audit log.
+
+**analysis.ipynb**
+Contains the notebook version of the analysis.
+
+**analysis.html**
+Contains the exported HTML version of the analysis notebook.
+
+**contributions.md**
+Documents the individual contributions and review records of the group members.
+
+**submission_manifest.txt**
+Records the repository URL, submitted release tag, and full commit hash.
+
+
+### Setup
+Python is required to run the program.
+
+The project uses the following Python libraries:
+pandas
+NumPy
+Matplotlib
+Seaborn
+
+The required packages can be installed using requirements.txt.
+
+Place the downloaded dataset in the following location before running the program:
 data/2015.csv
 
-## Installation and Requirements
 
-The project requires Python and the following third-party libraries:
+### Running the Program
+From the root directory of the repository, run:
+main.py
 
-- NumPy
-- pandas
-- Matplotlib
-- Seaborn
+The program loads the dataset, checks the required fields, inspects the raw data, processes the selected records, creates the required summaries and plots, performs the NumPy analysis, and runs the validation checks.
 
-Install the required packages using:
-pip install -r requirements.txt
+If a required validation check fails, the program reports the discrepancy and exits with a nonzero status.
 
-Git is also used for version control and collaborative development.
 
-## How to Run the Program
+### Data Inspection
+Before processing, the program inspects the dataset row count, number of columns, column data types, and missing values.
 
-Clone the repository:
-git clone <repository-url>
+The dutiablevaluephp field is converted to a numerical data type for processing and validation. Missing numerical values are counted and reported separately rather than being replaced with zero.
 
-Navigate to the project directory:
-cd Case-2
 
-Place the downloaded Customs dataset at:
-data/2015.csv
+### Filtering Rules
+The program uses two filtering conditions to select records for further processing.
 
-Install the required dependencies:
-pip install -r requirements.txt
+A record is selected when:
+dutiablevaluephp > 0
+AND
+countryorigin_iso3 is not missing and is not equal to "UNK"
 
-Run the complete program:
-python main.py
+The filtering operation is performed using pandas .loc.
 
-The program processes the dataset and generates the required summary, visualization, validation, and audit outputs.
+Records that do not satisfy the filtering conditions are treated as excluded records. Records with missing values in fields required by the filter are included in the excluded count according to the filtering rule.
 
-## Repository Structure
+The same selected records are used as the source for all six required primary outputs.
 
-The project is organized into separate modules based on their responsibilities:
 
-'''
-Case-2/
-│
-├── data/
-│   └── 2015.csv
-│
-├── src/
-│   ├── __init__.py
-│   ├── data_loader.py
-│   ├── processory.py
-│   ├── summary_grouping.py
-│   ├── analysis.py
-│   └── validation.py
-│
-├── outputs/
-│   ├── grouped.csv
-│   ├── grouped_two.csv
-│   ├── pivot.csv
-│   ├── top10.csv
-│   ├── bar.png
-│   ├── heatmap.png
-│   ├── validation.csv
-│   └── audit_log.csv
-│
-├── main.py
-├── config.py
-├── requirements.txt
-├── analysis.ipynb
-├── analysis.html
-├── contributions.md
-├── submission_manifest.txt
-├── .gitignore
-└── README.md
-'''
+### Transformation Rules
+After filtering, the program creates two derived columns.
 
-## Module Descriptions
+** 1. dutiablevalue_million_php**
+A numerical derived column calculated by dividing dutiablevaluephp by 1,000,000.
 
-1. **data_loader.py** – Loads the raw CSV file, checks whether the required columns are present, and provides initial dataset summary information.
+** 2. value_flag**
+A categorical derived column. Records with dutiablevaluephp greater than or equal to PHP 10,000 are classified as HIGH_VALUE, while values below PHP 10,000 are classified as LOW_VALUE.
 
-2. **processory.py** – Handles filtering, transformation, derived columns, sorting, and processing audit records.
+The processed records are then sorted by dutiablevaluephp in descending order.
 
-3. **summary_grouping.py** – Creates `grouped.csv`, `grouped_two.csv`, `pivot.csv`, and `top10.csv` from the selected records.
 
-4. **analysis.py** – Performs NumPy-based analysis, compares loop and vectorized calculations, measures their execution times, and generates the bar chart and heatmap.
+### Missing Value Handling
+Missing categorical values are retained as explicit groups where applicable during grouping operations. Missing numerical values are reported separately and are not replaced with zero. Records with missing values required by the filtering rule are excluded according to the stated filter conditions.The raw dataset is not modified by the program.
 
-5. **validation.py** – Performs reconciliation and reference checks and generates `validation.csv` and `audit_log.csv`.
 
-6. **config.py** – Stores shared configuration values such as the dataset path, output path, and required columns.
+### Units
+The primary numerical measure, dutiablevaluephp, is expressed in Philippine pesos (PHP).
 
-7. **main.py** – Serves as the main entry point of the program and coordinates the complete data pipeline.
+The derived dutiablevalue_million_php field expresses the same measure in millions of Philippine pesos.
 
-## Data Processing and Assumptions
+Summary totals, means, Top 10 values, and visualization values based on dutiablevaluephp therefore use PHP as their monetary unit.
 
-The raw dataset is kept unchanged. Processing operations are performed on copies of the loaded data.
 
-The program uses the following filtering conditions:
+### Generated Summary Outputs
+The program generates the following four summary CSV files.
 
-- `dutiablevaluephp > 0`
-- `countryorigin_iso3` is not missing
-- `countryorigin_iso3` is not equal to `UNK`
+**grouped.csv**
+Groups the selected records by countryorigin_iso3 and reports the row count, valid-measure count, measure sum, and measure mean.
 
-Records that do not satisfy the filtering conditions are treated as excluded records. Rows with missing values required by the filter are included in the excluded group.
+**grouped_two.csv**
+Groups the selected records by countryorigin_iso3 and tq and reports the row count and measure sum using named aggregations.
 
-Missing numerical values are reported as missing and are not replaced with zero. Grouping operations retain missing category groups where applicable using `dropna=False`.
+**pivot.csv**
+Creates a pivot table showing the sum of dutiablevaluephp across countryorigin_iso3 and tq, including margins.
 
-Two derived columns are created:
+**top10.csv**
+Sorts the first grouped summary by measure sum in descending order and keeps the ten largest groups.
 
-- **`dutiablevalue_million_php`** – converts `dutiablevaluephp` from Philippine pesos to millions of Philippine pesos.
-- **`value_flag`** – assigns `HIGH_VALUE` when `dutiablevaluephp` is greater than or equal to PHP 10,000 and `LOW_VALUE` otherwise.
 
-Selected records are sorted by `dutiablevaluephp` in descending order.
+### Visualizations
 
-The primary numerical measure, `dutiablevaluephp`, is expressed in Philippine pesos (PHP). The derived `dutiablevalue_million_php` field is expressed in millions of Philippine pesos.
+**bar.png**
+A Matplotlib bar chart generated from top10.csv. It shows the Top 10 countries of origin based on total dutiable value in Philippine pesos.
 
-## Output Files
+**heatmap.png**
+A Seaborn heatmap generated from pivot.csv after excluding the pivot margins. It visualizes dutiable value across countryorigin_iso3 and tq combinations.
 
-The program generates the following outputs:
 
-1. **grouped.csv** – Groups records by `countryorigin_iso3` and contains the row count, valid-measure count, measure sum, and measure mean.
-2. **grouped_two.csv** – Groups records by `countryorigin_iso3` and `tq` and contains the row count and measure sum.
-3. **pivot.csv** – Contains a pivot table of the sum of `dutiablevaluephp` across `countryorigin_iso3` and `tq`, including margins.
-4. **top10.csv** – Contains the top 10 countries based on the measure sum from the first grouped summary.
-5. **bar.png** – Displays the top 10 countries by total dutiable value.
-6. **heatmap.png** – Displays dutiable values across countries of origin and TQ categories.
-7. **validation.csv** – Records validation checks and their expected values, actual values, tolerances, and pass/fail results.
-8. **audit_log.csv** – Records the processing step, operation, rule, rows before, and rows after each major stage.
+### NumPy Analysis and Performance Comparison
+The analysis module converts dutiablevaluephp values into a NumPy array and uses a Boolean mask to select positive values. A vectorized NumPy calculation is then used to aggregate the selected values. The program also compares a loop-based calculation with its NumPy vectorized equivalent using the same fixed-seed sample. A random number generator with seed 42 is used to create a sample of up to 100,000 values. Both approaches are timed over five runs, and their median execution times are reported. The resulting calculations are also checked for agreement.
 
-## NumPy Analysis
 
-The program converts the selected `dutiablevaluephp` values into a NumPy array and uses a Boolean mask to identify positive values.
+### Validation
+The program generates validation.csv with the following columns:
+check
+expected
+actual
+tolerance
+pass
 
-A vectorized NumPy calculation and aggregation are performed on the data. A fixed-seed random sample is also used to compare a Python loop calculation with its NumPy equivalent.
+The validation process checks the raw dataset against the provided Customs 2015 reference values:
+**Expected rows**: 2,236,612
+**Expected columns**: 30
+**Expected dutiablevaluephp total**: PHP 3,587,267,375,257.00
+**Absolute numerical tolerance**: PHP 1.00
+**Relative tolerance**: 0
 
-The loop and NumPy calculations use the same sample. Their execution times are measured across five runs, and the median execution time for each approach is reported.
+The validation process also checks that raw rows reconcile with selected and excluded rows, the filtering rule produces the expected selected and excluded counts, missing filter-value rows are excluded, grouped row counts equal the selected row count, grouped and pivot totals reconcile with an independently calculated selected measure total, the plot source values agree with their summary tables, and the loop and vectorized calculations agree.
 
-The results are validated to confirm that the loop-based and vectorized calculations agree.
+Pivot margins are excluded when the pivot interior total is validated to prevent totals from being counted more than once.
 
-## Visualizations
+If any validation check fails, the discrepancy is displayed and the program exits with a nonzero status.
 
-### Bar Chart
 
-The bar chart uses the values from `top10.csv` and displays the top 10 countries according to total dutiable value.
+### Audit Log
+The program generates audit_log.csv with the following columns:
+step
+operation
+rule
+rows_before
+rows_after
 
-- **X-axis:** Country of Origin
-- **Y-axis:** Dutiable Value (PHP)
+The audit log records the major stages of the pipeline, including loading, filtering, transformation, summary generation, analysis and plotting, and validation. It records the processing rule used at each stage and the number of records before and after the operation.
 
-The bar chart provides a visual comparison of the countries with the highest total dutiable values in the selected Customs records.
 
-### Heatmap
+### Generated Files
+The complete pipeline produces the following required outputs:
+outputs/grouped.csv
+outputs/grouped_two.csv
+outputs/pivot.csv
+outputs/top10.csv
+outputs/bar.png
+outputs/heatmap.png
+outputs/validation.csv
+outputs/audit_log.csv
 
-The heatmap uses the values from `pivot.csv` while excluding the total margins.
 
-- **X-axis:** TQ
-- **Y-axis:** Country of Origin
-- **Values:** Dutiable Value (PHP)
+### Git and Collaboration
+The project was developed collaboratively using Git and GitHub. Group members contributed to separate components of the program and participated in debugging and testing the integrated pipeline. Individual contributions are documented in contributions.md.
 
-The heatmap shows how total dutiable values are distributed across combinations of country of origin and TQ.
+The final submitted version of the project is identified using the Git tag:
+week6-v1.0
 
-## Validation
-
-The program generates `validation.csv` with the following columns:
-
-- `check`
-- `expected`
-- `actual`
-- `tolerance`
-- `pass`
-
-For Customs 2015, the program validates the dataset against the supplied reference values:
-
-- **Rows:** 2,236,612
-- **Columns:** 30
-- **Raw `dutiablevaluephp` Sum:** PHP 3,587,267,375,257
-- **Absolute Tolerance for Reference Sum:** PHP 1.00
-- **Relative Tolerance:** 0
-- **SHA-256:** `b3b5a3a95340179a716a05611d51ad4906484d38363d1ac36494a404c04e4370`
-
-The validation process also checks that:
-
-- raw rows equal selected rows plus excluded rows;
-- rows with missing filter values are assigned to the excluded group;
-- grouped row counts equal the selected row count;
-- grouped sums equal an independently calculated sum of the selected measure;
-- the pivot interior sum equals the independently calculated selected-measure sum without counting margins twice;
-- values used for the bar chart match its summary table;
-- values used for the heatmap match the pivot table without margins; and
-- loop-based and vectorized calculations agree.
-
-Counts are compared exactly. Numerical comparisons use declared floating-point tolerances. If a required validation check fails, the program displays the discrepancy and exits with a nonzero status.
-
-## Audit Log
-
-The program generates `audit_log.csv` with the following columns:
-
-- `step`
-- `operation`
-- `rule`
-- `rows_before`
-- `rows_after`
-
-The audit log documents the major stages of the pipeline and records the rules applied to the data. This provides a traceable record of how the raw dataset is loaded, filtered, transformed, summarized, analyzed, and validated.
+Repository and final commit information are recorded in submission_manifest.txt.
