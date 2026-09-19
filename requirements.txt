@@ -1,0 +1,9 @@
+#Required Python packages for:
+
+# Data Processing
+numpy
+pandas
+
+# Visualizations
+matplotlib
+seaborn
