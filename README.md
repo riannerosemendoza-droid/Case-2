@@ -5,11 +5,11 @@
 
 | **Member** | **Assigned Task** | **Name** |
 | ---------- | ----------------- | ------------------- |
-| [Member 1 Name] | Data Loading and Inspection | Princess Kassy Mercado |
-| [Member 2 Name] | Data Processing and Transformation | Rianne Rose Mendoza |
-| [Member 3 Name] | Grouping and Summary Outputs | Keanna Lois Polvoriza |
-| [Member 4 Name] | NumPy Analysis and Visualization | Arianne Denise Sumalinog |
-| Olivia Patricia Jovita Baña | Validation and Documentation | Olivia Patricia Jovita Bana |
+|  Member 1  | Data Loading and Inspection | Princess Kassy Mercado |
+|  Member 2  | Data Processing and Transformation | Rianne Rose Mendoza |
+|  Member 3  | Grouping and Summary Outputs | Keanna Lois Polvoriza |
+|  Member 4  | NumPy Analysis and Visualization | Arianne Denise Sumalinog |
+| Member 5   | Validation and Documentation | Olivia Patricia Jovita Bana |
 
 Final integration and testing were completed collaboratively by the group.
 
