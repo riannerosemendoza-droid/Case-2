@@ -20,13 +20,18 @@ This project is a Python-based data summary program developed for DSA4153 – Pr
 
 
 ### Dataset Information
-
 **Dataset**: Philippine Customs 2015
+
 **Filename**: 2015.csv
+
 **Source**: BetterGov.PH
+
 **Source URL**: https://data.bettergov.ph/datasets/21
+
 **Download Date**: 2026-09-18
+
 **File Size**: 493.5 MB
+
 **File Format**: CSV
 
 The raw dataset contains 2,236,612 rows and 30 columns. The reference total for dutiablevaluephp is PHP 3,587,267,375,257.00.
@@ -49,44 +54,31 @@ The program uses the following fields from the Philippine Customs dataset:
 
 The project is organized into separate modules based on their responsibilities.
 
-**main.py**
-Serves as the main entry point of the program and executes the complete data-processing pipeline.
+**main.py** - Serves as the main entry point of the program and executes the complete data-processing pipeline.
 
-**config.py**
-Contains configuration values such as the dataset path, output directory, and required dataset columns.
+**config.py** - Contains configuration values such as the dataset path, output directory, and required dataset columns.
 
-**src/data_loader.py**
-Handles loading the Customs CSV file, checking required columns, and obtaining initial raw dataset statistics.
+**src/data_loader.py** - Handles loading the Customs CSV file, checking required columns, and obtaining initial raw dataset statistics.
 
-**src/processory.py**
-Handles data filtering, transformation, derived columns, sorting, and processing audit records.
+**src/processory.py** - Handles data filtering, transformation, derived columns, sorting, and processing audit records.
 
-**src/summary_grouping.py**
-Creates the grouped summaries, two-category summary, pivot table, and Top 10 summary.
+**src/summary_grouping.py** - Creates the grouped summaries, two-category summary, pivot table, and Top 10 summary.
 
-**src/analysis.py**
-Performs the NumPy analysis, Boolean masking, vectorized calculation, loop-versus-NumPy comparison, and creation of the required plots.
+**src/analysis.py** - Performs the NumPy analysis, Boolean masking, vectorized calculation, loop-versus-NumPy comparison, and creation of the required plots.
 
-**src/validation.py**
-Performs validation and reconciliation checks and generates validation.csv and audit_log.csv.
+**src/validation.py** - Performs validation and reconciliation checks and generates validation.csv and audit_log.csv.
 
-**src/__init__.py**
-Initializes the src package.
+**src/__init__.py** - Initializes the src package.
 
-**outputs folder**
-Contains the generated CSV summaries, plots, validation results, and audit log.
+**outputs folder** - Contains the generated CSV summaries, plots, validation results, and audit log.
 
-**analysis.ipynb**
-Contains the notebook version of the analysis.
+**analysis.ipynb** - Contains the notebook version of the analysis.
 
-**analysis.html**
-Contains the exported HTML version of the analysis notebook.
+**analysis.html** - Contains the exported HTML version of the analysis notebook.
 
-**contributions.md**
-Documents the individual contributions and review records of the group members.
+**contributions.md** - Documents the individual contributions and review records of the group members.
 
-**submission_manifest.txt**
-Records the repository URL, submitted release tag, and full commit hash.
+**submission_manifest.txt** - Records the repository URL, submitted release tag, and full commit hash.
 
 
 ### Setup
@@ -137,11 +129,9 @@ The same selected records are used as the source for all six required primary ou
 ### Transformation Rules
 After filtering, the program creates two derived columns.
 
-** 1. dutiablevalue_million_php**
-A numerical derived column calculated by dividing dutiablevaluephp by 1,000,000.
+**dutiablevalue_million_php** - A numerical derived column calculated by dividing dutiablevaluephp by 1,000,000.
 
-** 2. value_flag**
-A categorical derived column. Records with dutiablevaluephp greater than or equal to PHP 10,000 are classified as HIGH_VALUE, while values below PHP 10,000 are classified as LOW_VALUE.
+**value_flag** - A categorical derived column. Records with dutiablevaluephp greater than or equal to PHP 10,000 are classified as HIGH_VALUE, while values below PHP 10,000 are classified as LOW_VALUE.
 
 The processed records are then sorted by dutiablevaluephp in descending order.
 
@@ -161,26 +151,20 @@ Summary totals, means, Top 10 values, and visualization values based on dutiable
 ### Generated Summary Outputs
 The program generates the following four summary CSV files.
 
-**grouped.csv**
-Groups the selected records by countryorigin_iso3 and reports the row count, valid-measure count, measure sum, and measure mean.
+**grouped.csv** - Groups the selected records by countryorigin_iso3 and reports the row count, valid-measure count, measure sum, and measure mean.
 
-**grouped_two.csv**
-Groups the selected records by countryorigin_iso3 and tq and reports the row count and measure sum using named aggregations.
+**grouped_two.csv** - Groups the selected records by countryorigin_iso3 and tq and reports the row count and measure sum using named aggregations.
 
-**pivot.csv**
-Creates a pivot table showing the sum of dutiablevaluephp across countryorigin_iso3 and tq, including margins.
+**pivot.csv** - Creates a pivot table showing the sum of dutiablevaluephp across countryorigin_iso3 and tq, including margins.
 
-**top10.csv**
-Sorts the first grouped summary by measure sum in descending order and keeps the ten largest groups.
+**top10.csv** - Sorts the first grouped summary by measure sum in descending order and keeps the ten largest groups.
 
 
 ### Visualizations
 
-**bar.png**
-A Matplotlib bar chart generated from top10.csv. It shows the Top 10 countries of origin based on total dutiable value in Philippine pesos.
+**bar.png** - A Matplotlib bar chart generated from top10.csv. It shows the Top 10 countries of origin based on total dutiable value in Philippine pesos.
 
-**heatmap.png**
-A Seaborn heatmap generated from pivot.csv after excluding the pivot margins. It visualizes dutiable value across countryorigin_iso3 and tq combinations.
+**heatmap.png** - A Seaborn heatmap generated from pivot.csv after excluding the pivot margins. It visualizes dutiable value across countryorigin_iso3 and tq combinations.
 
 
 ### NumPy Analysis and Performance Comparison
@@ -197,9 +181,13 @@ pass
 
 The validation process checks the raw dataset against the provided Customs 2015 reference values:
 **Expected rows**: 2,236,612
+
 **Expected columns**: 30
+
 **Expected dutiablevaluephp total**: PHP 3,587,267,375,257.00
+
 **Absolute numerical tolerance**: PHP 1.00
+
 **Relative tolerance**: 0
 
 The validation process also checks that raw rows reconcile with selected and excluded rows, the filtering rule produces the expected selected and excluded counts, missing filter-value rows are excluded, grouped row counts equal the selected row count, grouped and pivot totals reconcile with an independently calculated selected measure total, the plot source values agree with their summary tables, and the loop and vectorized calculations agree.
