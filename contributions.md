@@ -8,6 +8,7 @@ checking whether the required columns are present, and obtaining the initial dat
 They also participated in debugging and testing the program to help ensure that the data loading component worked correctly with the other modules.
 
 
+
 ### Member 2 (Data Processing and Transformation)
 **Name: Rianne Rose Mendoza**
 
@@ -16,6 +17,7 @@ They also participated in debugging and testing the program to help ensure that 
 Member 2 was responsible for data processing and transformation. They developed processory.py, which applies the filtering conditions using .loc, converts dutiablevaluephp 
 into a numerical data type, creates the derived numerical and categorical columns, sorts the processed records, and records processing information for the audit trail. They 
 also participated in debugging and testing the program, particularly in checking the processing and transformation of the dataset.
+
 
 
 ### Member 3 (Summary and Grouping)
@@ -28,6 +30,7 @@ pivot table, and Top 10 summary. These processes generate grouped.csv, grouped_t
 ensure that the summaries were generated correctly from the processed records.
 
 
+
 ### Member 4 (NumPy Analysis and Visualization)
 **Name: Arianne Denise Sumalinog**
 
@@ -36,6 +39,8 @@ ensure that the summaries were generated correctly from the processed records.
 Member 4 was responsible for the NumPy analysis and data visualization component. They developed analysis.py, which performs the NumPy array, Boolean mask, vectorized calculation, 
 and loop-versus-NumPy comparison using five timing runs. The module also creates the required bar chart using top10.csv and the heatmap using pivot.csv, producing bar.png and heatmap.png. 
 They also participated in debugging and testing the analysis and visualization components and their integration with the rest of the program.
+
+
 
 ### Member 5 (Validation and Documentation)
 **Name: Olivia Patricia Jovita Baña**
