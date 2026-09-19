@@ -1,0 +1,3 @@
+Repository URL: https://github.com/riannerosemendoza-droid/Case-2.git
+Release Tag: week6-v1.0
+Full Commit Hash: TO-BE-ADDED
