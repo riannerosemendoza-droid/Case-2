@@ -2,9 +2,11 @@
 **Name: Princess Kassy Mercado**
 
 **Github Username: pkkmercado**
+
 Developed `src/data_loader.py`, implemented dataset loading for the Philippine Customs 2015 CSV file, implemented required-column checking, obtained initial dataset statistics including total row count and raw sum of `dutiablevaluephp`, participated in debugging and testing the data loading component and its integration with other modules.
 
 **Commits**
+
 cebc7e4a01604d1e62318168dcdba48331405cd4
 
 9cd564432086b56dd9bac12ea15170ed87839893
@@ -25,9 +27,11 @@ c585c7592a8615b39e6fc097ee24f1d188dc0d4e
 **Name: Rianne Rose Mendoza**
 
 **Github Username: riannerosemendoza-droid**
+
 Developed `src/processory.py`, implemented data filtering using `.loc`, converted `dutiablevaluephp` to a numerical data type, created the derived numerical and categorical columns, implemented sorting of processed records, recorded processing information for the audit trail, participated in debugging and testing the data processing and transformation component.
 
 **Commits**
+
 fce3b5b7cd3c254ea59a43675d680e07801f4226
 
 72b80fd61f4e898eafe3711f21b5a3e3c4772177
@@ -40,9 +44,11 @@ fce3b5b7cd3c254ea59a43675d680e07801f4226
 **Name: Keanna Lois Polvoriza**
 
 **Github Username: keannaloispolvoriza**
+
 Developed `src/summary_grouping.py`, created the one-category grouped summary, created the two-category grouped summary, created the pivot table, created the Top 10 summary, generated `grouped.csv`, generated `grouped_two.csv`, generated `pivot.csv`, generated `top10.csv`, participated in debugging and testing the summary and grouping component.
 
 **Commits**
+
 ff6f1f1b98ea0468584db2bbd45eda67c65d8630
 
 5d1fc532683475a866511b8622b479d9c8b96f1f
@@ -59,9 +65,11 @@ ce0ad8eb9b434f74d351e8c57fcb65176eafb906
 **Name: Arianne Denise Sumalinog**
 
 **Github Username: ariannesumalinog**
+
 Developed `src/analysis.py`, implemented the NumPy array and Boolean mask, implemented the vectorized calculation, implemented the loop-versus-NumPy comparison using five timing runs, created the bar chart using `top10.csv`, created the heatmap using `pivot.csv`, generated `bar.png` and `heatmap.png`, participated in debugging and testing the analysis and visualization components and their integration with the program.
 
 **Commits**
+
 194d14bb903df9bd19720e4b4dae275e7a487dc0
 
 b71031fff0b41f29a8feb88562de04938bdbba4f
@@ -80,9 +88,11 @@ e20c88fcb8946eefc79a1f7e8e37ddf4a399aae5
 **Name: Olivia Patricia Jovita Baña**
 
 **Github Username: olivia-bana**
+
 Developed `src/validation.py`, implemented validation of the dataset reference values, implemented SHA-256 dataset verification, validated filtering results and summary totals, validated plot source values, validated agreement between loop and vectorized calculations, generated `validation.csv`, generated `audit_log.csv`, prepared and updated project documentation including `README.md` and `contributions.md`, participated in debugging and testing the complete integrated program.
 
 **Commits**
+
 fcda0a0d0fba9f3fe14a76f8b783340ae77fd75e
 
 6e321d68393c253455a48849636e6a69b681aade
