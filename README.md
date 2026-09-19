@@ -78,34 +78,19 @@ Git is also used for version control and collaborative development.
 ## How to Run the Program
 
 Clone the repository:
-
-```bash
 git clone <repository-url>
-```
 
 Navigate to the project directory:
-
-```bash
 cd Case-2
-```
 
 Place the downloaded Customs dataset at:
-
-```text
 data/2015.csv
-```
 
 Install the required dependencies:
-
-```bash
 pip install -r requirements.txt
-```
 
 Run the complete program:
-
-```bash
 python main.py
-```
 
 The program processes the dataset and generates the required summary, visualization, validation, and audit outputs.
 
@@ -113,7 +98,6 @@ The program processes the dataset and generates the required summary, visualizat
 
 The project is organized into separate modules based on their responsibilities:
 
-```text
 Case-2/
 │
 ├── data/
@@ -146,7 +130,6 @@ Case-2/
 ├── submission_manifest.txt
 ├── .gitignore
 └── README.md
-```
 
 ## Module Descriptions
 
