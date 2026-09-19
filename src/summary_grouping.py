@@ -1,12 +1,3 @@
-"""
-Summary Grouping Module
-
-Creates four required summary tables:
-1. grouped.csv
-2. grouped_two.csv
-3. pivot.csv
-4. top10.csv
-"""
 
 from pathlib import Path
 from typing import Tuple
@@ -262,3 +253,31 @@ class SummaryGrouping:
             pivot,
             top10
         )    
+if __name__ == "__main__":
+    import os
+
+    # Set base directory and output folder path
+    base_dir = Path(__file__).resolve().parent.parent
+    output_dir = base_dir / "outputs"
+
+    # Locate input dataset (looks in data/2015.csv first)
+    input_file = base_dir / "data" / "2015.csv"
+
+    if not input_file.exists():
+        # Fallback search for other possible file names/locations
+        possible_inputs = [
+            base_dir / "outputs" / "filtered.csv",
+            base_dir / "filtered_data.csv",
+            base_dir / "2015.csv"
+        ]
+        input_file = next((f for f in possible_inputs if f.exists()), None)
+
+    if input_file and input_file.exists():
+        print(f"Loading data from: {input_file}")
+        df_raw = pd.read_csv(input_file, encoding="latin-1", low_memory=False)
+
+        # Instantiate class and create outputs
+        summarizer = SummaryGrouping(output_folder=output_dir)
+        summarizer.create_all_summaries(df_raw)
+    else:
+        print("[ERROR] No valid CSV dataset found in data/ or root directory.")
