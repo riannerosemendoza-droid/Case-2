@@ -85,10 +85,14 @@ The project is organized into separate modules based on their responsibilities.
 Python is required to run the program.
 
 The project uses the following Python libraries:
-pandas
-NumPy
-Matplotlib
-Seaborn
+
+**pandas**
+
+**NumPy**
+
+**Matplotlib**
+
+**Seaborn**
 
 The required packages can be installed using requirements.txt.
 
@@ -173,13 +177,11 @@ The analysis module converts dutiablevaluephp values into a NumPy array and uses
 
 ### Validation
 The program generates validation.csv with the following columns:
-check
-expected
-actual
-tolerance
-pass
+
+check, expected, actual, tolerance, pass
 
 The validation process checks the raw dataset against the provided Customs 2015 reference values:
+
 **Expected rows**: 2,236,612
 
 **Expected columns**: 30
@@ -199,24 +201,29 @@ If any validation check fails, the discrepancy is displayed and the program exit
 
 ### Audit Log
 The program generates audit_log.csv with the following columns:
-step
-operation
-rule
-rows_before
-rows_after
+
+step, operation, rule, rows_before, rows_after
 
 The audit log records the major stages of the pipeline, including loading, filtering, transformation, summary generation, analysis and plotting, and validation. It records the processing rule used at each stage and the number of records before and after the operation.
 
 
 ### Generated Files
 The complete pipeline produces the following required outputs:
+
 outputs/grouped.csv
+
 outputs/grouped_two.csv
+
 outputs/pivot.csv
+
 outputs/top10.csv
+
 outputs/bar.png
+
 outputs/heatmap.png
+
 outputs/validation.csv
+
 outputs/audit_log.csv
 
 
