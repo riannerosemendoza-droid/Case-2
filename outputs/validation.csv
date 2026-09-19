@@ -1,0 +1,23 @@
+check,expected,actual,tolerance,pass
+Raw row count,2236612,2236612,exact,True
+Raw column count,30,30,exact,True
+Raw dutiablevaluephp sum,3587267375257.0,3587267375257,absolute PHP 1.00; relative 0,True
+Dataset SHA-256,b3b5a3a95340179a716a05611d51ad4906484d38363d1ac36494a404c04e4370,b3b5a3a95340179a716a05611d51ad4906484d38363d1ac36494a404c04e4370,exact,True
+Raw rows equal selected plus excluded rows,2236612,2236612,exact,True
+Selected row count follows filter rule,2236612,2236612,exact,True
+Excluded row count follows filter rule,0,0,exact,True
+Missing filter-value rows are excluded,True,True,exact,True
+Output file exists: grouped.csv,True,True,exact,True
+Output file exists: grouped_two.csv,True,True,exact,True
+Output file exists: pivot.csv,True,True,exact,True
+Output file exists: top10.csv,True,True,exact,True
+Output file exists: bar.png,True,True,exact,True
+Output file exists: heatmap.png,True,True,exact,True
+Grouped row counts equal selected row count,2236612,2236612,exact,True
+Grouped sum equals independently computed selected sum,3587267375257,3587267375257,absolute PHP 1.00; relative 0,True
+Two-category grouped row counts equal selected row count,2236612,2236612,exact,True
+Two-category grouped sum equals independently computed selected sum,3587267375257,3587267375257,absolute PHP 1.00; relative 0,True
+Pivot interior sum equals independently computed selected sum,3587267375257,3587267375257.0,absolute PHP 1.00; relative 0,True
+Values passed to bar plot match top10.csv,True,True,exact categories; absolute PHP 1.00; relative 0,True
+Values passed to heatmap match pivot.csv without margins,True,True,absolute PHP 1.00; relative 0,True
+Loop and vectorized calculations agree,173731853060.0,173731853060.0,absolute PHP 1.00; relative 0,True

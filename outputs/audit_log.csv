@@ -1,0 +1,7 @@
+step,operation,rule,rows_before,rows_after
+Step_1_Load,LOAD,Load raw Customs 2015 CSV without modifying the raw file,2236612,2236612
+Step_2_Filter,FILTER,dutiablevaluephp > 0.0 AND countryorigin_iso3 is not missing AND countryorigin_iso3 != 'UNK',2236612,2236612
+Step_3_Transform,TRANSFORM,Created dutiablevalue_million_php and value_flag; sorted by dutiablevaluephp descending,2236612,2236612
+Step_4_Summary,GROUP_AND_PIVOT,"Create grouped, two-category grouped, pivot, and top-10 summaries from the same selected records",2236612,2236612
+Step_5_Analysis,ANALYZE_AND_PLOT,Compare loop and NumPy calculations and create plots from summary tables,2236612,2236612
+Step_6_Validation,VALIDATE,Reconcile counts and sums; missing filter values are excluded; numerical comparisons use absolute tolerance 1.0 and relative tolerance 0.0,2236612,2236612
